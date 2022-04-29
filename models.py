@@ -6,16 +6,16 @@ class Resultado():
         Valor = valor
         Error = error
 
-    def HasValue(self):
+    def TieneValor(self):
         return self.Valor != None
 
     Valor: any = None
     Error: any = None
 
 class Movimiento():
-    LLAVE_MONTO = "Monto"
-    LLAVE_TIPO = "Tipo"
-    LLAVE_FECHA = "Fecha"
+    LLAVE_MONTO = "Monto" #23.5, 354.6. Nótese que no incluye el signo
+    LLAVE_TIPO = "Tipo" #Ejemplo: Gasto, Ingreso
+    LLAVE_FECHA = "Fecha" # La fecha, en formato iso. YYYY-MM-DD Ejemplo: 2022-04-29
     _current: dict
 
     def __init__(self, diccionario: dict) -> None:
