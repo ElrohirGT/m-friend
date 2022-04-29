@@ -1,5 +1,5 @@
 from datetime import date
-from helperMethods import FromDictToCSVLine, IsFloat
+from helper_methods import FromDictToCSVLine, IsFloat
 
 class Resultado():
     def __init__(self, valor, error = None) -> None:
