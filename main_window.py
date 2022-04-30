@@ -1,14 +1,40 @@
 import PySimpleGUI as sg
 
-from models import Ingreso, Movimiento
+from models import Movimiento
 
-sg.theme('DarkAmber')   # Add a touch of color
-# All the stuff inside your window.
-layout = [  [sg.Text('Some text on Row 1')],
-            [sg.Text('Enter something on Row 2'), sg.InputText()],
-            [sg.Button('Ok'), sg.Button('Cancel')] ]
+sg.theme('DarkGreen2') #Tema de la ventana
+graphs = [sg.Graph((700,300), (-250, -250), (250,250), background_color="#1a1a1a") for x in range(4)]
 
-# Uso de clase movimiento
+top_pane = sg.Pane([
+    sg.Col([[sg.VPush()], [sg.Text("M-Friend", font=("Mistral", 24))], [sg.VPush()]], element_justification="c"),
+], s=(800,50))
+
+tabs = sg.TabGroup(tab_location="left", layout=[
+    [
+        sg.Tab("Gráfica 1", [
+            [graphs[0]]
+        ]),
+        sg.Tab("Gráfica 2", [
+            [graphs[1]]
+        ]),
+        sg.Tab("Gráfica 3", [
+            [graphs[2]]
+        ]),
+        sg.Tab("Gráfica 4", [
+            [graphs[3]]
+        ]),
+
+    ]
+])
+
+layout = [
+    [top_pane],
+    [tabs],
+    [sg.Push(), sg.Button('Registrar Ingreso'), sg.Button('Registrar Gasto'), sg.Push()],
+    [sg.Push(), sg.Button("Recomendaciones"), sg.Push()]
+]
+
+# Ejemplo de uso de clase movimiento (esta información vendría de un archivo en la app final)
 movimiento = Movimiento({
     "Monto": 23.5,
     "Tipo": "Gasto",
@@ -21,9 +47,11 @@ if monto.TieneValor():
 else:
     print("NO TIENE MONTO")
 
-# Create the Window
-window = sg.Window('Window Title', layout)
+# Creación de la ventana
+window = sg.Window('M-Friend', layout)
+window.Finalize()# Sin esto no se puede dibujar algo en las gráficas
 # Event Loop to process "events" and get the "values" of the inputs
+circleID = graphs[0].DrawCircle((0,0), 30, line_color="white")
 while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
