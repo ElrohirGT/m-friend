@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 
 from models import Movimiento
+from ventana_gasto import VentanaGasto
 from ventana_ingreso import VentanaIngreso
 
 sg.theme('DarkGreen2') #Tema de la ventana
@@ -67,8 +68,11 @@ while True:
     if event in (sg.WINDOW_CLOSED, 'Cancel'): # if user closes window or clicks cancel
         break
 
+    nuevoMovimiento = {}
     if event == botonIngreso:
-        nuevoIngreso = VentanaIngreso.ObtenerIngreso()
+        nuevoMovimiento = VentanaIngreso.ObtenerIngreso()
+    if event == botonGasto:
+        nuevoMovimiento = VentanaGasto.ObtenerGasto()
     print('You entered ', values[0])
 
 window.close()
