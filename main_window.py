@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 
 from models import Movimiento
+from ventana_ingreso import VentanaIngreso
 
 sg.theme('DarkGreen2') #Tema de la ventana
 graphs = [sg.Graph((700,300), (-250, -250), (250,250), background_color="#1a1a1a") for x in range(4)]
@@ -27,11 +28,20 @@ tabs = sg.TabGroup(tab_location="left", layout=[
     ]
 ])
 
+botonIngreso = "btn_ingreso"
+botonGasto = "btn_gasto"
+botonRecomendaciones = "btn_recomendaciones"
+
 layout = [
     [top_pane],
     [tabs],
-    [sg.Push(), sg.Button('Registrar Ingreso'), sg.Button('Registrar Gasto'), sg.Push()],
-    [sg.Push(), sg.Button("Recomendaciones"), sg.Push()]
+    [
+        sg.Push(),
+        sg.Button('Registrar Ingreso', key=botonIngreso),
+        sg.Button('Registrar Gasto', key=botonGasto),
+        sg.Push()
+    ],
+    [sg.Push(), sg.Button("Recomendaciones", key=botonRecomendaciones), sg.Push()]
 ]
 
 # Ejemplo de uso de clase movimiento (esta información vendría de un archivo en la app final)
@@ -54,8 +64,11 @@ window.Finalize()# Sin esto no se puede dibujar algo en las gráficas
 circleID = graphs[0].DrawCircle((0,0), 30, line_color="white")
 while True:
     event, values = window.read()
-    if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+    if event in (sg.WINDOW_CLOSED, 'Cancel'): # if user closes window or clicks cancel
         break
+
+    if event == botonIngreso:
+        nuevoIngreso = VentanaIngreso.ObtenerIngreso()
     print('You entered ', values[0])
 
 window.close()
