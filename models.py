@@ -3,8 +3,8 @@ from helper_methods import FromDictToCSVLine, IsFloat
 
 class Resultado():
     def __init__(self, valor, error = None) -> None:
-        Valor = valor
-        Error = error
+        self.Valor = valor
+        self.Error = error
 
     def TieneValor(self):
         return self.Valor != None
