@@ -61,18 +61,33 @@ else:
 # Creación de la ventana
 window = sg.Window('M-Friend', layout)
 window.Finalize()# Sin esto no se puede dibujar algo en las gráficas
+
+def ObtenerMovimientos(nombreArchivo: str) -> list[Movimiento]:
+    pass
+
+def GuardarMovimientos(nombreArchvo: str):
+    pass
+
+def CrearGraficas(movimientos: list[Movimiento], graficas: list[sg.Graph]):
+    # Con la circleID se pueden crear animaciones
+    circleID = graphs[0].DrawCircle((0,0), 30, line_color="white") 
+
+nombreArchivo = "database.csv"
+movimientos = ObtenerMovimientos(nombreArchivo)
 # Event Loop to process "events" and get the "values" of the inputs
-circleID = graphs[0].DrawCircle((0,0), 30, line_color="white")
 while True:
+    CrearGraficas(movimientos, graphs)
     event, values = window.read()
     if event in (sg.WINDOW_CLOSED, 'Cancel'): # if user closes window or clicks cancel
         break
 
-    nuevoMovimiento = {}
+    nuevoMovimiento = None
     if event == botonIngreso:
         nuevoMovimiento = VentanaIngreso.ObtenerIngreso()
     if event == botonGasto:
         nuevoMovimiento = VentanaGasto.ObtenerGasto()
+    movimientos.append(nuevoMovimiento)
     print('You entered ', values[0])
 
 window.close()
+GuardarMovimientos(nombreArchivo)
