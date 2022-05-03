@@ -3,7 +3,10 @@ import PySimpleGUI as sg
 from models import Movimiento
 
 class VentanaIngreso():
-    def ObtenerIngreso() -> Movimiento:
+    # ¿Qué debe retornar?
+    # None: en caso de que le de cancelar o algo así
+    # Movimiento({datos}): en caso de que sí le de a guardar
+    def ObtenerIngreso() -> Movimiento | None:
         topPane = sg.Pane([
             sg.Col([[sg.VPush()], [sg.Text("Formulario Ingreso", font=("Mistral", 24))], [sg.VPush()]], element_justification="c"),
         ], s=(800,50))
@@ -18,4 +21,4 @@ class VentanaIngreso():
                 break
 
         window.close()
-        return Movimiento()
+        return None

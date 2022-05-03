@@ -86,7 +86,8 @@ while True:
         nuevoMovimiento = VentanaIngreso.ObtenerIngreso()
     if event == botonGasto:
         nuevoMovimiento = VentanaGasto.ObtenerGasto()
-    movimientos.append(nuevoMovimiento)
+    if nuevoMovimiento != None:
+        movimientos.append(nuevoMovimiento)
     print('You entered ', values[0])
 
 window.close()
