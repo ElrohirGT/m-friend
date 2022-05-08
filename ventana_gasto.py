@@ -41,7 +41,7 @@ class VentanaGasto():
             elmonto = values["inputmonto"]
             lafecha = values["inputfecha"]
             xd = elmonto.isnumeric()
-             l = ["0000", "00"," 00"]
+            l = ["0000", "00"," 00"]
             xd2 = lafecha.split("-")
             xd3 = lafecha.isalpha()
             if len(xd2) == 3:
