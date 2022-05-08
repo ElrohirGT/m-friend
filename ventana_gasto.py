@@ -1,5 +1,6 @@
 from calendar import c
 import PySimpleGUI as sg
+from tkinter import messagebox
 
 from models import Movimiento
 
@@ -57,6 +58,8 @@ class VentanaGasto():
                     break 
                 else:
                     pass
+            else:
+                messagebox.showerror("Error", "Los datos ingresados son incorrectos")
                 
 
             if event == botonRegresar: 
