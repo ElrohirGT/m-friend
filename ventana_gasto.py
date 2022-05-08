@@ -38,16 +38,23 @@ class VentanaGasto():
             if event in (sg.WINDOW_CLOSED, 'Cancel'): # if user closes window or clicks cancel
                 break
 
+            elmonto = values["inputmonto"]
+            lafecha = values["inputfecha"]
+            xd = elmonto.isnumeric()
+            xd2 = lafecha.isalpha()
             
-            if event == botonGuardar:
-                #otro if
-                movimiento = {
-                "Monto": values["inputmonto"],
-                "Fecha": values["inputfecha"],
-                "Tipo": "Gasto"
-                }
+            if xd == True and xd2 == False:
+                if event == botonGuardar:
+                    movimiento = {
+                    "Monto": elmonto,
+                    "Fecha": lafecha,
+                    "Tipo": "Gasto"
+                    }
                 nuevoMovimiento = Movimiento(movimiento)
-                break
+                break 
+            else:
+                pass
+                
 
             if event == botonRegresar: 
                 break
