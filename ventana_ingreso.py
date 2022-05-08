@@ -54,7 +54,7 @@ class VentanaIngreso():
                         "Fecha": lafecha,
                         "Tipo": "Ingreso"
                         }
-                    print(movimiento)
+                    # print(movimiento)
                     nuevoMovimiento = Movimiento(movimiento)
                     break 
                 else:
@@ -63,7 +63,7 @@ class VentanaIngreso():
                 break
             else:
                 messagebox.showerror("Error","Los datos ingresados son incorrectos")
-                print("error")
+                # print("error")
             
 
         window.close()
