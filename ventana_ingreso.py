@@ -41,19 +41,22 @@ class VentanaIngreso():
             elmonto = values["inputmonto"]
             lafecha = values["inputfecha"]
             xd = elmonto.isnumeric()
-            xd2 = lafecha.isalpha()
-            
-            if xd == True and xd2 == False:
-                if event == botonGuardar:
-                    movimiento = {
-                    "Monto": elmonto,
-                    "Fecha": lafecha,
-                    "Tipo": "Ingreso"
-                    }
-                nuevoMovimiento = Movimiento(movimiento)
-                break 
-            else:
-                pass
+            l = ["0000", "00"," 00"]
+            xd2 = lafecha.split("-")
+            xd3 = lafecha.isalpha()
+            if len(xd2) == 3:
+                l = [int(xd2[0]), int(xd2[1]),int(xd2[2])]
+                if xd == True and xd3 == False and l[0] > 2021 and l[1] > 0 and l[1] < 12 and l[2] > 0 and l[2] < 31:
+                    if event == botonGuardar:
+                        movimiento = {
+                        "Monto": elmonto,
+                        "Fecha": lafecha,
+                        "Tipo": "Ingreso"
+                        }
+                    nuevoMovimiento = Movimiento(movimiento)
+                    break 
+                else:
+                    pass
                 
 
             if event == botonRegresar: 
