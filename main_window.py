@@ -48,28 +48,37 @@ layout = [
 # Ejemplo de uso de clase movimiento (esta información vendría de un archivo en la app final)
 movimiento = Movimiento({
     "Monto": 23.5,
+    "Fecha": "2022-04-09",
     "Tipo": "Gasto",
-    "Fecha": "2022-04-09"
 })
-
+movimiento2 = Movimiento({
+    "Monto": 23.5,
+    "Fecha": "2022-04-09",
+    "Tipo": "Gasto",
+})
+print("# EJEMPLO DE USO DE CLASE MOVIMIENTO")
 monto = movimiento.ObtenerMonto()
 if monto.TieneValor():
     print("El monto es:", monto.Valor);
 else:
     print("NO TIENE MONTO")
+print("# EJEMPLO DE CSV")
+print("Monto", "Fecha", "Tipo", sep=",")
+print(movimiento.ToCSVLine())
+print(movimiento2.ToCSVLine())
 
 # Creación de la ventana
 window = sg.Window('M-Friend', layout)
 window.Finalize()# Sin esto no se puede dibujar algo en las gráficas
 
 def ObtenerMovimientos(nombreArchivo: str) -> list[Movimiento]:
-    with open ("base_de_datos_mfriend.csv") as archivito:
+    with open (nombreArchivo) as archivito:
         lineas = archivito.readlines()
         for i in range(len(lineas)):
             lineas[i] = lineas[i].rstrip().split(",")
         return lineas
-def GuardarMovimientos(nombreArchvo: str):
-    with open("base_de_datos_mfriend.csv", "w") as archivito:
+def GuardarMovimientos(nombreArchivo: str, registros: list[Movimiento]):
+    with open(nombreArchivo, "w") as archivito:
         lineas = archivito.readlines()
         for i in range(len(lineas)):
             for j in range(2):
@@ -77,6 +86,7 @@ def GuardarMovimientos(nombreArchvo: str):
                 archivito.write(",")
             archivito.write("\n")
         registro=[]# va a ser el conjunto recibido de los ingresos o cobros
+
         for i in range(2):
             archivito.write(str(registro[i]))
             if (i!=2):
@@ -85,7 +95,7 @@ def CrearGraficas(movimientos: list[Movimiento], graficas: list[sg.Graph]):
     # Con la circleID se pueden crear animaciones
     circleID = graphs[0].DrawCircle((0,0), 30, line_color="white") 
 
-nombreArchivo = "database.csv"
+nombreArchivo = "base_de_datos_mfriend.csv"
 movimientos = ObtenerMovimientos(nombreArchivo)
 # Event Loop to process "events" and get the "values" of the inputs
 while True:
@@ -104,4 +114,4 @@ while True:
     print('You entered ', values[0])
 
 window.close()
-GuardarMovimientos(nombreArchivo)
+GuardarMovimientos(nombreArchivo, movimientos)
