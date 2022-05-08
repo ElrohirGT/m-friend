@@ -58,13 +58,13 @@ class VentanaIngreso():
                     nuevoMovimiento = Movimiento(movimiento)
                     break 
                 else:
-                    messagebox.showerror("Error","Los datos ingresados son incorrectos")
-                    print("error")
+                    pass
+            elif event == botonRegresar: 
+                break
             else:
                 messagebox.showerror("Error","Los datos ingresados son incorrectos")
                 print("error")
-            if event == botonRegresar: 
-                break
+            
 
         window.close()
         return nuevoMovimiento
