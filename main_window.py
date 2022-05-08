@@ -63,11 +63,24 @@ window = sg.Window('M-Friend', layout)
 window.Finalize()# Sin esto no se puede dibujar algo en las gráficas
 
 def ObtenerMovimientos(nombreArchivo: str) -> list[Movimiento]:
-    pass
-
+    with open ("base_de_datos_mfriend.csv") as archivito:
+        lineas = archivito.readlines()
+        for i in range(len(lineas)):
+            lineas[i] = lineas[i].rstrip().split(",")
+        return lineas
 def GuardarMovimientos(nombreArchvo: str):
-    pass
-
+    with open("base_de_datos_mfriend.csv", "w") as archivito:
+        lineas = archivito.readlines()
+        for i in range(len(lineas)):
+            for j in range(2):
+                archivito.write(str(lineas[i][j]))
+                archivito.write(",")
+            archivito.write("\n")
+        registro=[]# va a ser el conjunto recibido de los ingresos o cobros
+        for i in range(2):
+            archivito.write(str(registro[i]))
+            if (i!=2):
+                archivito.write(",")
 def CrearGraficas(movimientos: list[Movimiento], graficas: list[sg.Graph]):
     # Con la circleID se pueden crear animaciones
     circleID = graphs[0].DrawCircle((0,0), 30, line_color="white") 
