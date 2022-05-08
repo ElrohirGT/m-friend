@@ -75,22 +75,14 @@ def ObtenerMovimientos(nombreArchivo: str) -> list[Movimiento]:
     with open (nombreArchivo) as archivito:
         lineas = archivito.readlines()
         for i in range(len(lineas)):
-            lineas[i] = lineas[i].rstrip().split(",")
+            lineas[i] = lineas[i].rstrip().split()
         return lineas
 def GuardarMovimientos(nombreArchivo: str, registros: list[Movimiento]):
     with open(nombreArchivo, "w") as archivito:
-        lineas = archivito.readlines()
-        for i in range(len(lineas)):
-            for j in range(2):
-                archivito.write(str(lineas[i][j]))
-                archivito.write(",")
+        for i in range(len(registros)):
+            archivito.write(str(registros[i][0]))
+            print(registros[i][0])
             archivito.write("\n")
-        registro=[]# va a ser el conjunto recibido de los ingresos o cobros
-
-        for i in range(2):
-            archivito.write(str(registro[i]))
-            if (i!=2):
-                archivito.write(",")
 def CrearGraficas(movimientos: list[Movimiento], graficas: list[sg.Graph]):
     # Con la circleID se pueden crear animaciones
     circleID = graphs[0].DrawCircle((0,0), 30, line_color="white") 
@@ -110,7 +102,8 @@ while True:
     if event == botonGasto:
         nuevoMovimiento = VentanaGasto.ObtenerGasto()
     if nuevoMovimiento != None:
-        movimientos.append(nuevoMovimiento)
+        movimientos.append(nuevoMovimiento.ToCSVLine().split())
+        print(movimientos)
     print('You entered ', values[0])
 
 window.close()
