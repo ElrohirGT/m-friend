@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-
+from tkinter import messagebox
 from models import Movimiento
 from ventana_gasto import VentanaGasto
 from ventana_ingreso import VentanaIngreso
@@ -56,16 +56,16 @@ movimiento2 = Movimiento({
     "Fecha": "2022-04-09",
     "Tipo": "Gasto",
 })
-print("# EJEMPLO DE USO DE CLASE MOVIMIENTO")
-monto = movimiento.ObtenerMonto()
-if monto.TieneValor():
-    print("El monto es:", monto.Valor);
-else:
-    print("NO TIENE MONTO")
-print("# EJEMPLO DE CSV")
-print("Monto", "Fecha", "Tipo", sep=",")
-print(movimiento.ToCSVLine())
-print(movimiento2.ToCSVLine())
+# print("# EJEMPLO DE USO DE CLASE MOVIMIENTO")
+# monto = movimiento.ObtenerMonto()
+# if monto.TieneValor():
+#     print("El monto es:", monto.Valor);
+# else:
+#     print("NO TIENE MONTO")
+# print("# EJEMPLO DE CSV")
+# print("Monto", "Fecha", "Tipo", sep=",")
+# print(movimiento.ToCSVLine())
+# print(movimiento2.ToCSVLine())
 
 # Creación de la ventana
 window = sg.Window('M-Friend', layout)
@@ -81,7 +81,7 @@ def GuardarMovimientos(nombreArchivo: str, registros: list[Movimiento]):
     with open(nombreArchivo, "w") as archivito:
         for i in range(len(registros)):
             archivito.write(str(registros[i][0]))
-            print(registros[i][0])
+            # print(registros[i][0])
             archivito.write("\n")
 def CrearGraficas(movimientos: list[Movimiento], graficas: list[sg.Graph]):
     # Con la circleID se pueden crear animaciones
@@ -103,8 +103,8 @@ while True:
         nuevoMovimiento = VentanaGasto.ObtenerGasto()
     if nuevoMovimiento != None:
         movimientos.append(nuevoMovimiento.ToCSVLine().split())
-        print(movimientos)
-    print('You entered ', values[0])
+        # print(movimientos)
+    # print('You entered ', values[0])
 
 window.close()
 GuardarMovimientos(nombreArchivo, movimientos)

@@ -58,12 +58,10 @@ class VentanaGasto():
                     break 
                 else:
                     pass
+            elif event == botonRegresar: 
+                break
             else:
                 messagebox.showerror("Error", "Los datos ingresados son incorrectos")
-                
-
-            if event == botonRegresar: 
-                break
-
+       
         window.close()
         return nuevoMovimiento

@@ -1,4 +1,5 @@
 from calendar import c
+from tkinter import messagebox
 import PySimpleGUI as sg
 
 from models import Movimiento
@@ -46,21 +47,24 @@ class VentanaIngreso():
             xd3 = lafecha.isalpha()
             if len(xd2) == 3:
                 l = [int(xd2[0]), int(xd2[1]),int(xd2[2])]
-                if xd == True and xd3 == False and l[0] > 2021 and l[1] > 0 and l[1] < 12 and l[2] > 0 and l[2] < 31:
+                if xd == True and xd3 == False and l[0] > 2020 and l[1] > 0 and l[1] < 13 and l[2] > 0 and l[2] < 32:
                     if event == botonGuardar:
                         movimiento = {
                         "Monto": elmonto,
                         "Fecha": lafecha,
                         "Tipo": "Ingreso"
                         }
+                    # print(movimiento)
                     nuevoMovimiento = Movimiento(movimiento)
                     break 
                 else:
                     pass
-                
-
-            if event == botonRegresar: 
+            elif event == botonRegresar: 
                 break
+            else:
+                messagebox.showerror("Error","Los datos ingresados son incorrectos")
+                # print("error")
+            
 
         window.close()
         return nuevoMovimiento
