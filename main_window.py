@@ -8,7 +8,7 @@ sg.theme('DarkGreen2') #Tema de la ventana
 graphs = [sg.Graph((700,300), (-250, -250), (250,250), background_color="#1a1a1a") for x in range(4)]
 
 top_pane = sg.Pane([
-    sg.Col([[sg.VPush()], [sg.Text("M-Friend", font=("Mistral", 24))], [sg.VPush()]], element_justification="c"),
+    sg.Col([[sg.VPush()], [sg.Text("M-Friend", font=("Times new roman", 24))], [sg.VPush()]], element_justification="c"),
 ], s=(800,50))
 
 tabs = sg.TabGroup(tab_location="left", layout=[

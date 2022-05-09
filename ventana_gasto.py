@@ -10,14 +10,14 @@ class VentanaGasto():
     # Movimiento({datos}): en caso de que sí le de a guardar
     def ObtenerGasto() -> Movimiento | None:
         topPane = sg.Pane([
-            sg.Col([[sg.VPush()], [sg.Text("Formulario Gasto", font=("Mistral", 24))], [sg.VPush()]], element_justification="c"),
+            sg.Col([[sg.VPush()], [sg.Text("Formulario Gasto", font=("Times new roman", 24))], [sg.VPush()]], element_justification="c"),
         ], s=(800,50))
         botonGuardar = "btn_guardar"
         botonRegresar = "btn_regresar"
-        a = [sg.Text("Formulario de", font=("Mistral", 24))]
-        b = [sg.Text("ingreso de gastos", font=("Mistral", 24))]
-        c = [sg.Text("Monto: ", font=("Mistral", 24)), sg.Input(key="inputmonto")]
-        d = [sg.Text("Fecha: ", font=("Mistral", 24)), sg.Input(key="inputfecha")]
+        a = [sg.Text("Formulario de", font=("Times new roman", 24))]
+        b = [sg.Text("ingreso de gastos", font=("Times new roman", 24))]
+        c = [sg.Text("Monto: ", font=("Times new roman", 24)), sg.Input(key="inputmonto")]
+        d = [sg.Text("Fecha: ", font=("Times new roman", 24)), sg.Input(key="inputfecha")]
         e = [sg.Button('Guardar', key=botonGuardar)]
         f = [sg.Button('Regresar', key=botonRegresar)]
 
