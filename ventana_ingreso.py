@@ -30,7 +30,7 @@ class VentanaIngreso():
 
             [topPane],[sg.Push(),midPane,sg.Push()]
         ]
-        window = sg.Window("Formluario Ingresos", layout)
+        window = sg.Window("Formulario Ingresos", layout)
         
         nuevoMovimiento = None
 

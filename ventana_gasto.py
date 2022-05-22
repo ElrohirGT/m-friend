@@ -30,7 +30,7 @@ class VentanaGasto():
 
             [topPane],[sg.Push(),midPane,sg.Push()]
         ]
-        window = sg.Window("Formluario Gasto", layout)
+        window = sg.Window("Formulario Gasto", layout)
         
         nuevoMovimiento = None
 
