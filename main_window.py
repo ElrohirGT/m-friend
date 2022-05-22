@@ -3,6 +3,7 @@ from tkinter import messagebox
 from models import Movimiento
 from ventana_gasto import VentanaGasto
 from ventana_ingreso import VentanaIngreso
+from ventana_recomendaciones import VentanaRecomendaciones
 
 sg.theme('DarkGreen2') #Tema de la ventana
 graphs = [sg.Graph((700,300), (-250, -250), (250,250), background_color="#1a1a1a") for x in range(4)]
@@ -96,6 +97,9 @@ while True:
     if event in (sg.WINDOW_CLOSED, 'Cancel'): # if user closes window or clicks cancel
         break
 
+    if event == botonRecomendaciones:
+        VentanaRecomendaciones.Mostrar()
+
     nuevoMovimiento = None
     if event == botonIngreso:
         nuevoMovimiento = VentanaIngreso.ObtenerIngreso()
@@ -103,8 +107,6 @@ while True:
         nuevoMovimiento = VentanaGasto.ObtenerGasto()
     if nuevoMovimiento != None:
         movimientos.append(nuevoMovimiento.ToCSVLine().split())
-        # print(movimientos)
-    # print('You entered ', values[0])
 
 window.close()
 GuardarMovimientos(nombreArchivo, movimientos)
