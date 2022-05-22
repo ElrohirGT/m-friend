@@ -101,7 +101,7 @@ def RealizarAnalisisDe(nombre_archivo: str) -> str:
     gastosSubieronRespectoAlMesAnterior = gastosRespectoMesAnterior < 0
     ingresosBajaronRespectoAlMesAnterior = ingresosRespectoMesAnterior > 0
 
-    recomendacion = f"\n {recomendaciones[gastosSonMayores][gastosSubieronRespectoAlMesAnterior][ingresosBajaronRespectoAlMesAnterior]}"
+    recomendacion = recomendaciones[gastosSonMayores][gastosSubieronRespectoAlMesAnterior][ingresosBajaronRespectoAlMesAnterior]
     
     return (analisisGeneral, analisisMensual, recomendacion)
 
