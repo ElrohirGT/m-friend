@@ -39,6 +39,11 @@ class VentanaRecomendaciones():
         ]
 
         window = sg.Window("Recomendaciones", layout)
+        
+        window.finalize() # Después de esta función ya podes dibujar lo que querrás
+        realGraph.DrawCircle((0,0), 50, "Green")
+        expectedGraph.DrawCircle((0,0), 50, "red")
+
         while True:
             event, values = window.read()
             if event in (sg.WINDOW_CLOSED, 'Cancel'): # if user closes window or clicks cancel
