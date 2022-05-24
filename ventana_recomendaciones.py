@@ -43,9 +43,8 @@ class VentanaRecomendaciones():
             event, values = window.read()
             if event in (sg.WINDOW_CLOSED, 'Cancel'): # if user closes window or clicks cancel
                 break
-
         window.close()
-    
+        realGraph.draw_rectangle((-100,100),(10,10),fill_color="white")
 def RealizarAnalisisDe(nombre_archivo: str) -> str:
     recomendaciones = { # Gastos actuales mayores que sus ingresos?
         True: { # Los gastos subieron respecto al mes pasado?
@@ -114,5 +113,5 @@ def EvaluarPromedioDeMesActualYAnterior(mesAnterior, mesActual):
         simbolo = "más que el mes anterior"
     elif porcentajeDiferencia > 0:
         simbolo = "menos que el mes anterior"
-    
+
     return (promedioMesActual , porcentajeDiferencia, f"{abs(porcentajeDiferencia):.2f}% {simbolo}")

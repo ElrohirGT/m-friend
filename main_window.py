@@ -4,26 +4,26 @@ from models import Movimiento
 from ventana_gasto import VentanaGasto
 from ventana_ingreso import VentanaIngreso
 from ventana_recomendaciones import VentanaRecomendaciones
-
+import random
 sg.theme('DarkGreen2') #Tema de la ventana
 graphs = [sg.Graph((700,300), (-250, -250), (250,250), background_color="#1a1a1a") for x in range(4)]
 
 top_pane = sg.Pane([
     sg.Col([[sg.VPush()], [sg.Text("M-Friend", font=("Times new roman", 24))], [sg.VPush()]], element_justification="c"),
-], s=(800,50))
+], s=(850,50))
 
 tabs = sg.TabGroup(tab_location="left", layout=[
     [
-        sg.Tab("Gráfica 1", [
+        sg.Tab("Gráfica \n Barras gastos    ", [
             [graphs[0]]
         ]),
-        sg.Tab("Gráfica 2", [
+        sg.Tab("Gráfica \n Barras ingreso   ", [
             [graphs[1]]
         ]),
-        sg.Tab("Gráfica 3", [
+        sg.Tab("Gráfica \n Scatter gastos   ", [
             [graphs[2]]
         ]),
-        sg.Tab("Gráfica 4", [
+        sg.Tab("Gráfica \n Scatter ingreso  ", [
             [graphs[3]]
         ]),
 
@@ -84,9 +84,66 @@ def GuardarMovimientos(nombreArchivo: str, registros: list[Movimiento]):
             archivito.write(str(registros[i][0]))
             # print(registros[i][0])
             archivito.write("\n")
+meses=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
 def CrearGraficas(movimientos: list[Movimiento], graficas: list[sg.Graph]):
     # Con la circleID se pueden crear animaciones
-    circleID = graphs[0].DrawCircle((0,0), 30, line_color="white") 
+    matriz=ObtenerMovimientos(nombreArchivo)
+    matrizg=[]
+    matrizi=[]
+    for i in range(len(matriz)):
+        reg=matriz[i][0].split(",")
+        if (reg[2]=="Gasto"):
+            matrizg.append(reg)
+        elif (reg[2]=="Ingreso"):
+            matrizi.append(reg)
+    barras(matrizg,0)
+    barras(matrizi,1)
+    disper(matrizg,2)
+    disper(matrizi,3)
+def disper(matri,s):
+    graphs[s].Erase()
+    gmeses=[1]*12
+    bandera=True
+    for i in range(len(matri)):
+        registro_temporal=matri[i][1].split("-")
+        mes=int(registro_temporal[1])
+        gmeses[mes-1]+=int(matri[i][0])
+    maxi=max(gmeses)
+    valuesy=[0]*13
+    for i in range(13):
+        valuesy[i]=(maxi/12)*i+1
+    graphs[s].draw_line((-225,-210),(243, -210), color='blue')
+    graphs[s].draw_line((-225,-210),(-225, 200), color='blue')
+    for i in range(len(matri)):
+        registro_temporal=matri[i][1].split("-")
+        mes=int(registro_temporal[1])
+        graphs[s].DrawCircle(((mes-1)*40+20-230, (int(matri[i][0])*400/maxi)-200),3, fill_color='blue')
+
+    for i in range(12):
+        graphs[s].DrawText(text=meses[i], location=(
+            i*40+20-230, -230), color='blue')
+    for i in range(13):graphs[s].DrawText(text=str(int(valuesy[i])), location=(
+            -240, 33.3*i-205), color='blue')
+def barras(matri,s):
+    graphs[s].Erase()
+    gmeses=[1]*12
+    for i in range(len(matri)):
+        registro_temporal=matri[i][1].split("-")
+        mes=int(registro_temporal[1])
+        gmeses[mes-1]+=int(matri[i][0])
+    maxi=max(gmeses)
+    valuesy=[0]*13
+    for i in range(13):
+        valuesy[i]=(maxi/12)*i+1
+    graphs[s].draw_line((-225,-210),(243, -210), color='blue')
+    graphs[s].draw_line((-225,-210),(-225, 200), color='blue')
+    for i in range(12):
+        graphs[s].DrawRectangle(top_left=(i*40-220, (int(gmeses[i])*400/maxi)-200),
+                            bottom_right=(i*40+20-220, -200), fill_color='blue')
+        graphs[s].DrawText(text=meses[i], location=(
+            i*40+20-230, -230), color='blue')
+    for i in range(13):graphs[s].DrawText(text=str(int(valuesy[i])), location=(
+            -240, 33.3*i-205), color='blue')
 
 nombreArchivo = "base_de_datos_mfriend.csv"
 movimientos = ObtenerMovimientos(nombreArchivo)
