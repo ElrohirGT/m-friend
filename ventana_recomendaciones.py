@@ -103,7 +103,7 @@ def RealizarAnalisisDe(nombre_archivo: str) -> str:
         True: { # Los gastos subieron respecto al mes pasado?
             True: { # Los ingresos bajaron respecto al mes pasado?
                 True: "Lo sentimos, sabemos que manejar dinero es difícil, por eso creamos esta aplicación! Te recomendamos que veas a TwoCents en Youtube.",
-                False: "Hey, enfocándonos en lo positivo, tus ingresos subieron respecto al mes pasado! Sin embargo tus gastos también subieron respecto al mes pasado y también gastaste más de lo que ganaste este mes. Recuerda, la diferencia óptima entre gastos e ingresos es de un mínimo del 30%. No porque tengas más dinero significa que tengas que gastar más."
+                False: "Hey, enfocándonos en lo positivo, tus ingresos subieron respecto al mes pasado! Sin embargo tus gastos también subieron respecto al mes pasado y también gastaste más de lo que ganaste este mes. Recuerda, la diferencia óptima entre gastos e ingresos es de un mínimo del 20%. No porque tengas más dinero significa que tengas que gastar más."
             },
             False: { # Los ingresos bajaron respecto al mes pasado?
                 True: "Felicidades! Tus gastos no subieron respecto al mes anterior. Sin embargo, debes recordar que gastaste más de lo que ganaste este mes, por lo que debes intentar mantenerlos más arriba. Tú puedes!",
@@ -112,7 +112,7 @@ def RealizarAnalisisDe(nombre_archivo: str) -> str:
         },
         False: { # Los gastos subieron respecto al mes pasado?
             True: { # Los ingresos bajaron respecto al mes pasado?
-                True: "Hey, todo bien? Por el momento tus gastos son menores que tus ingresos, pero tus gastos subieron y tus ingresos bajaron. Ten cuidado, recuerda que la diferencia mínima óptima entre gastos e ingresos es del 30%",
+                True: "Hey, todo bien? Por el momento tus gastos son menores que tus ingresos, pero tus gastos subieron y tus ingresos bajaron. Ten cuidado, recuerda que la diferencia mínima óptima entre gastos e ingresos es del 20%",
                 False: "Vas bien por el momento, nadie es perfecto. Tus gastos subieron respecto al mes pasado pero tus ingresos no bajaron y tus gastos siguen siendo menor a tus ingresos. Tú puedes!"
             },
             False: { # Los ingresos bajaron respecto al mes pasado?
