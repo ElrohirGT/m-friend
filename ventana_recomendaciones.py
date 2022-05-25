@@ -3,6 +3,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import PySimpleGUI as sg
 import pandas as pd
+from pyparsing import line
 
 class VentanaRecomendaciones():
     def Mostrar():
@@ -41,15 +42,62 @@ class VentanaRecomendaciones():
         window = sg.Window("Recomendaciones", layout)
         
         window.finalize() # Después de esta función ya podes dibujar lo que querrás
-        realGraph.DrawCircle((0,0), 50, "Green")
-        expectedGraph.DrawCircle((0,0), 50, "red")
-
+        #realGraph.DrawCircle((0,0), 50, "Green")
+        fechaActual = datetime.today()
+        with open ("base_de_datos_mfriend.csv") as archivito:
+            lineas = archivito.readlines()
+            for i in range(len(lineas)):
+                lineas[i] = lineas[i].rstrip().split()
+        matriz=lineas
+        matri=[0]*2
+        gastos=0
+        colores=["Red", "Green"]
+        ingresos=0
+        fechaActual=(fechaActual.strftime("%m"))
+        for i in range(len(matriz)):
+            reg=matriz[i][0].split(",")
+            if (reg[2]=="Gasto"):
+                gastos+=float(reg[0])
+            elif (reg[2]=="Ingreso"):
+                ingresos+=float(reg[0])
+        matri[0]=(gastos)
+        matri[1]=(ingresos)
+        realGraph.Erase()
+        maxi=max(matri)
+        valuesy=[0]*8
+        for i in range(8):
+            valuesy[i]=(maxi/8)*(i+1)
+            print(i+1)
+        valuesx=["Gastos", "Ingresos"]
+        meses=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+        realGraph.draw_line((-225,-210),(243, -210), color='white')
+        realGraph.draw_line((-225,-210),(-225, 200), color='white')
+        for i in range(2):
+            realGraph.DrawRectangle(top_left=(i*100-100, (int(matri[i])*400/maxi)-200),
+                                bottom_right=(i*100+75-100,-200), fill_color=colores[i])
+            realGraph.DrawText(text=valuesx[i], location=(
+                i*100+75-135, -230), color='white')
+        for i in range(8):realGraph.DrawText(text=str(int(valuesy[i])), location=(
+                -250, 58*i-205), color='white')
+        realGraph.DrawText(text="Gastos vrs Ingresos en "+meses[int(fechaActual)-1], location=(
+                -10, 249), color='white')
+        #grafica ideal
+        expectedGraph.draw_line((-225,-210),(243, -210), color='white')
+        expectedGraph.draw_line((-225,-210),(-225, 200), color='white')
+        expectedGraph.DrawRectangle(top_left=(0*100-100, 400/100*80-200),
+                                bottom_right=(0*100+75-100,-200), fill_color='Red')
+        expectedGraph.DrawRectangle(top_left=(1*100-100, 400-200),
+                                bottom_right=(1*100+75-100,-200), fill_color='Green')
+        for i in range(2):
+            expectedGraph.DrawText(text=valuesx[i], location=(
+                i*100+75-135, -230), color='white')
+        expectedGraph.DrawText(text="Los gastos deberían ser menores del 80% de los ingresos", location=(
+                10, 248), color='white')
         while True:
             event, values = window.read()
             if event in (sg.WINDOW_CLOSED, 'Cancel'): # if user closes window or clicks cancel
                 break
         window.close()
-        realGraph.draw_rectangle((-100,100),(10,10),fill_color="white")
 def RealizarAnalisisDe(nombre_archivo: str) -> str:
     recomendaciones = { # Gastos actuales mayores que sus ingresos?
         True: { # Los gastos subieron respecto al mes pasado?

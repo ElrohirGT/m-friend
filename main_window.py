@@ -1,3 +1,4 @@
+from operator import length_hint
 import PySimpleGUI as sg
 from tkinter import messagebox
 from models import Movimiento
@@ -112,8 +113,8 @@ def disper(matri,s):
     valuesy=[0]*13
     for i in range(13):
         valuesy[i]=(maxi/12)*i+1
-    graphs[s].draw_line((-225,-210),(243, -210), color='blue')
-    graphs[s].draw_line((-225,-210),(-225, 200), color='blue')
+    graphs[s].draw_line((-225,-210),(243, -210), color='white')
+    graphs[s].draw_line((-225,-210),(-225, 200), color='white')
     for i in range(len(matri)):
         registro_temporal=matri[i][1].split("-")
         mes=int(registro_temporal[1])
@@ -121,9 +122,9 @@ def disper(matri,s):
 
     for i in range(12):
         graphs[s].DrawText(text=meses[i], location=(
-            i*40+20-230, -230), color='blue')
+            i*40+20-230, -230), color='white')
     for i in range(13):graphs[s].DrawText(text=str(int(valuesy[i])), location=(
-            -240, 33.3*i-205), color='blue')
+            -240, 33.3*i-205), color='white')
 def barras(matri,s):
     graphs[s].Erase()
     gmeses=[1]*12
@@ -135,15 +136,15 @@ def barras(matri,s):
     valuesy=[0]*13
     for i in range(13):
         valuesy[i]=(maxi/12)*i+1
-    graphs[s].draw_line((-225,-210),(243, -210), color='blue')
-    graphs[s].draw_line((-225,-210),(-225, 200), color='blue')
+    graphs[s].draw_line((-225,-210),(243, -210), color='white')
+    graphs[s].draw_line((-225,-210),(-225, 200), color='white')
     for i in range(12):
         graphs[s].DrawRectangle(top_left=(i*40-220, (int(gmeses[i])*400/maxi)-200),
                             bottom_right=(i*40+20-220, -200), fill_color='blue')
         graphs[s].DrawText(text=meses[i], location=(
-            i*40+20-230, -230), color='blue')
+            i*40+20-230, -230), color='white')
     for i in range(13):graphs[s].DrawText(text=str(int(valuesy[i])), location=(
-            -240, 33.3*i-205), color='blue')
+            -240, 33.3*i-205), color='white')
 
 nombreArchivo = "base_de_datos_mfriend.csv"
 movimientos = ObtenerMovimientos(nombreArchivo)
